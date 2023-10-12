@@ -1,4 +1,4 @@
-import './globals.css'
+import '@/app/globals.css'
 import type { Metadata } from 'next'
 import Menu from "@/components/menu/Menu";
 export const metadata: Metadata = {
@@ -14,8 +14,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={` 
       mx-auto
-      md:px-0
-      px-2
+      max-w-[100vw] 
       overflow-x-hidden
       `}>
       <Menu/>

@@ -16,7 +16,6 @@ const IMenuStateContext = {
 
 export const MenuStateContext = createContext<MenuStateContextType>(IMenuStateContext)
 const NavMenu = () => {
-    const [ width,height ] = useWindowSize();
     const [isOpen, setIsOpen] = useState(false)
     const variants = {
         open: { right:0},
