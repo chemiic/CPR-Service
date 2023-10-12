@@ -16,7 +16,7 @@ interface MenuToggleProps {
     setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 const MenuToggle:FC<MenuToggleProps> = ({isOpen, setIsOpen}) => (
-    <button onClick={(()=>{setIsOpen(!isOpen)})} className={`absolute top-4 right-[2vw] w-[10] h-[10] lg:hidden`}>
+    <button onClick={(()=>{setIsOpen(!isOpen)})} className={`absolute top-4 z-50 right-[2vw] w-10 h-10 lg:hidden`}>
         <svg width="23" height="23" viewBox="0 0 23 23">
             <Path
                 variants={{

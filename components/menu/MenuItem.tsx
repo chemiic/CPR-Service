@@ -4,39 +4,18 @@ import React, {FC, useContext, useState} from 'react';
 import Link from "next/link";
 import {twMerge} from "tailwind-merge";
 import { motion } from "framer-motion";
-import {MenuStateContext} from "@/components/NavMenu";
+import {MenuStateContext} from "@/components/menu/NavMenu";
 interface SidebarItemProps {
     label: string;
     active?: boolean;
     href: string;
 }
-const variants = {
-    open: {
-        y: 0,
-        opacity: 1,
-        transition: {
-            y: { stiffness: 1000, velocity: -100 }
-        }
-    },
-    closed: {
-        y: 50,
-        opacity: 0,
-        transition: {
-            y: { stiffness: 1000 }
-        }
-    }
-};
-
 
 const SidebarItem: FC<SidebarItemProps> = ({ label, active, href}) => {
 
-    const {isOpen, setIsOpen, isSmallScreen} = useContext(MenuStateContext);
+    const {isOpen, setIsOpen} = useContext(MenuStateContext);
 
     return (
-        <motion.li
-            variants={variants}
-            whileTap={{ scale: 0.95 }}
-        >
             <Link
                 href={href}
                 className={twMerge(`
@@ -58,11 +37,10 @@ const SidebarItem: FC<SidebarItemProps> = ({ label, active, href}) => {
                 `,
                     active && "text-black lg:text-blue-700"
                 )}
-                onClick={(()=>isSmallScreen && setIsOpen(!isOpen))}
+                onClick={(()=> setIsOpen(false))}
             >
                 <p className="truncate w-full">{label}</p>
             </Link>
-        </motion.li>
     );
 };
 

@@ -1,9 +1,8 @@
 import {NextPage} from "next";
+import MainScreen from "@/app/(site)/components/MainScreen";
 const HomePage:NextPage = () => {
-
-
   return (
-      <div>asd  </div>
+      <MainScreen/>
   )
 }
 export default HomePage

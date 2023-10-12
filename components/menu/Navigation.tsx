@@ -1,7 +1,7 @@
 'use client'
 import {useMemo} from "react";
 import {usePathname} from "next/navigation";
-import MenuItem from "@/components/MenuItem";
+import MenuItem from "@/components/menu/MenuItem";
 
 import { motion } from "framer-motion";
 import * as React from "react";
@@ -39,7 +39,7 @@ const Navigation = () => {
     };
 
     return (
-        <motion.ul variants={variants} className={`flex gap-1 flex-col items-center relative z-5 lg:flex-row lg:gap-4`}>
+        <motion.ul variants={variants} className={`flex gap-1 flex-col items-center relative lg:flex-row lg:gap-4`}>
             {routes.map((item)=> (
                 <MenuItem key={item.label} {...item} />
             ))}
