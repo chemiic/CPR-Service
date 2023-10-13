@@ -1,9 +1,8 @@
 'use client'
 
-import React, {FC, useContext, useState} from 'react';
+import React, {FC, useContext} from 'react';
 import Link from "next/link";
 import {twMerge} from "tailwind-merge";
-import { motion } from "framer-motion";
 import {MenuStateContext} from "@/components/menu/NavMenu";
 interface SidebarItemProps {
     label: string;

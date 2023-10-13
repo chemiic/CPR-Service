@@ -33,9 +33,17 @@ const MainScreen = () => {
                         strokeDashoffset='0'
                         strokeDasharray='900.258'/>
                 </motion.svg>
-                <div className={`relative h-[550px] z-20`}>
-                    <h1 className={`text-5xl mt-10`}>Типо заголовок</h1>
-                </div>
+                <motion.div className={`relative h-[550px] z-20 flex flex-col justify-center gap-3`}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0, }}
+                            transition={{
+                                type: "spring",
+                                duration: 1.5
+                            }}
+                >
+                    <h1 className={`text-5xl mt-10 font-bold`}>Ремонт и обслуживание<br/> француузкихх авто</h1>
+                    <h2 className={`text-3xl mb-6`}>Citroen, Peugeot, Renault</h2>
+                </motion.div>
             </div>
             <Image src={mainScreen}
                    alt={'it must be a photo of car but something go wrong'}

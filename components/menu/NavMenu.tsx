@@ -1,8 +1,7 @@
-
+'use client'
 import {createContext, Dispatch, SetStateAction, useEffect, useRef, useState} from "react";
 import { motion } from "framer-motion";
 import Navigation from "@/components/menu/Navigation";
-import useWindowSize from "@/hooks/useWindowSize";
 import MenuToggle from "@/components/menu/MenuToggle";
 
 interface MenuStateContextType{
@@ -17,6 +16,7 @@ const IMenuStateContext = {
 export const MenuStateContext = createContext<MenuStateContextType>(IMenuStateContext)
 const NavMenu = () => {
     const [isOpen, setIsOpen] = useState(false)
+
     const variants = {
         open: { right:0},
         closed: { right: '-100%'},

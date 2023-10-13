@@ -1,9 +1,6 @@
-'use client'
 import {useMemo} from "react";
 import {usePathname} from "next/navigation";
 import MenuItem from "@/components/menu/MenuItem";
-
-import { motion } from "framer-motion";
 import * as React from "react";
 const Navigation = () => {
     const pathname = usePathname();
@@ -29,21 +26,13 @@ const Navigation = () => {
             href: '/contacts',
         },
     ], [pathname]);
-    const variants = {
-        open: {
-            transition: { staggerChildren: 0.07, delayChildren: 0.2 }
-        },
-        closed: {
-            transition: { staggerChildren: 0.05, staggerDirection: -1 }
-        }
-    };
 
     return (
-        <motion.ul variants={variants} className={`flex gap-1 flex-col items-center relative lg:flex-row lg:gap-4`}>
+        <ul className={`flex gap-1 flex-col items-center relative lg:flex-row lg:gap-4`}>
             {routes.map((item)=> (
                 <MenuItem key={item.label} {...item} />
             ))}
-        </motion.ul>
+        </ul>
     )
 }
 export default Navigation;

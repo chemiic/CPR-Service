@@ -14,7 +14,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={` 
       mx-auto
-      max-w-[100vw] 
+      relative
+      max-w-screen-2xl 
       overflow-x-hidden
       `}>
       <Menu/>
