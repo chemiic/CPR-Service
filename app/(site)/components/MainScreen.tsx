@@ -43,7 +43,7 @@ const MainScreen = () => {
                                 duration: 1.5
                             }}
                 >
-                    <h1 className={`text-5xl mt-10 font-bold`}>Ремонт и обслуживание<br/> французкихх авто</h1>
+                    <h1 className={`text-5xl mt-10 font-bold`}>Ремонт и обслуживание<br/> французких авто</h1>
                     <h2 className={`text-3xl mb-6`}>Citroen, Peugeot, Renault</h2>
                 </motion.div>
             </div>
@@ -51,7 +51,7 @@ const MainScreen = () => {
                    alt={'it must be a photo of car but something go wrong'}
                    width={800}
                    height={500}
-                   className={`mx-auto w-[100%] absolute`}
+                   className={`ml-auto w-full h-[auto] absolute`}
             />
         </div>
     )

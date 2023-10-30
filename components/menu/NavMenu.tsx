@@ -1,5 +1,5 @@
 'use client'
-import {createContext, Dispatch, SetStateAction, useEffect, useRef, useState} from "react";
+import {createContext, Dispatch, SetStateAction, useState} from "react";
 import { motion } from "framer-motion";
 import Navigation from "@/components/menu/Navigation";
 import MenuToggle from "@/components/menu/MenuToggle";
@@ -28,7 +28,7 @@ const NavMenu = () => {
             className={``}
         >
             <MenuStateContext.Provider value={{isOpen, setIsOpen}}>
-                <motion.div className={`absolute top-0 bottom-0 w-full h-full z-40 flex justify-center items-center 
+                <motion.div className={`absolute top-0 bottom-0 w-full h-[100vh] lg:h-full z-40 flex justify-center items-center 
                 text-center bg-blue-600
                 lg:static lg:justify-end lg:bg-transparent`}
                 variants={variants}

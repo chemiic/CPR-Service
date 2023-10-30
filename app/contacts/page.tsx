@@ -2,9 +2,7 @@ import {NextPage} from "next";
 
 const  ContactsPage:NextPage = () => {
     return (
-
-            <div>ContactsPage</div>
-
+        <h1>ContactsPage</h1>
     )
 }
 export default ContactsPage
