@@ -1,16 +1,22 @@
-import {NextPage} from "next";
-import MainScreen from "@/app/(site)/components/MainScreen";
-import AboutUs from "@/app/(site)/components/AboutUs";
-import Features from "@/app/(site)/components/Features";
-import Brands from "@/app/(site)/components/Brands";
-const HomePage:NextPage = () => {
+import { NextPage } from 'next';
+import MainScreen from '@/app/(site)/components/MainScreen';
+import ServiceCta from '@/app/(site)/components/ServiceCta';
+import Contacts from '@/app/(site)/components/Contacts';
+import AboutUs from '@/app/(site)/components/AboutUs';
+import Services from '@/app/(site)/components/Services';
+import Features from '@/app/(site)/components/Features';
+
+const HomePage: NextPage = () => {
   return (
     <main>
-        <MainScreen/>
-        <AboutUs/>
-        <Features/>
-        <Brands/>
+      <MainScreen />
+      <ServiceCta />
+      <AboutUs />
+      <Services />
+      <Features />
+      <Contacts />
     </main>
-  )
-}
-export default HomePage
+  );
+};
+
+export default HomePage;

@@ -1,22 +1,44 @@
-'use client'
+'use client';
+
+import { motion } from 'framer-motion';
+import ButtonLink from '@/components/UI/ButtonLink';
+import Container from '@/components/Container';
+import { services } from '@/lib/site-content';
+
+const fadeIn = {
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-50px' },
+};
+
 const Services = () => {
+  return (
+    <section className="section">
+      <Container>
+        <motion.h2 className="section-title" {...fadeIn} transition={{ duration: 0.5, ease: 'easeOut' }}>
+          Услуги
+          <span className="section-accent" />
+        </motion.h2>
+        <div className="cards-grid cards-grid--2 cards-grid--3">
+          {services.map((service, index) => (
+            <motion.div
+              key={service.id}
+              {...fadeIn}
+              transition={{ duration: 0.5, ease: 'easeOut', delay: index * 0.08 }}
+              className="card"
+            >
+              <h3 className="card__title">{service.title}</h3>
+              <p className="card__text">{service.description}</p>
+              {service.price && <p className="card__price">{service.price}</p>}
+            </motion.div>
+          ))}
+        </div>
+        <div className="section-actions">
+          <ButtonLink href="/services">Все услуги</ButtonLink>
+        </div>
+      </Container>
+    </section>
+  );
+};
 
-    return(
-        <section className={`flex 
-            justify-between
-            py-20
-            gap-6
-            mx-auto         
-            max-w-screen-2xl
-            xl:max-w-7xl
-            lg:max-w-6xl
-            md:max-w-5xl    
-            w-full
-            relative `}
-
-        >
-            <h2 className={`text-4xl font-bold`}>Услуги<span className={`block w-10 bg-blue-600 h-1 my-3`}></span></h2>
-        </section>
-    )
-}
 export default Services;

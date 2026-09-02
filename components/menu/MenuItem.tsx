@@ -1,46 +1,44 @@
-'use client'
+'use client';
 
-import React, {FC, useContext} from 'react';
-import Link from "next/link";
-import {twMerge} from "tailwind-merge";
-import {MenuStateContext} from "@/components/menu/NavMenu";
-interface SidebarItemProps {
-    label: string;
-    active?: boolean;
-    href: string;
+import { FC, useContext } from 'react';
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
+import { MenuStateContext } from '@/components/menu/NavMenu';
+
+interface MenuItemProps {
+  label: string;
+  active?: boolean;
+  href: string;
+  variant?: 'desktop' | 'mobile';
 }
 
-const SidebarItem: FC<SidebarItemProps> = ({ label, active, href}) => {
+const MenuItem: FC<MenuItemProps> = ({ label, active, href, variant = 'desktop' }) => {
+  const { setIsOpen } = useContext(MenuStateContext);
 
-    const {isOpen, setIsOpen} = useContext(MenuStateContext);
-
+  if (variant === 'mobile') {
     return (
-            <Link
-                href={href}
-                className={twMerge(`
-                    flex
-                    flex-row
-                    h-auto
-                    items-center
-                    w-full
-                    cursor-pointer
-                    gap-x-4
-                    font-medium
-                    text-xl
-                    text-neutral-100
-                    lg:text-md
-                    lg:text-neutral-700
-                    lg:hover:text-blue-600
-                    transition
-                    py-1
-                `,
-                    active && "text-black lg:text-blue-700"
-                )}
-                onClick={(()=> setIsOpen(false))}
-            >
-                <p className="truncate w-full">{label}</p>
-            </Link>
+      <li>
+        <Link
+          href={href}
+          className={cn('nav-mobile__link', active && 'nav-mobile__link--active')}
+          onClick={() => setIsOpen(false)}
+        >
+          {label}
+        </Link>
+      </li>
     );
+  }
+
+  return (
+    <li>
+      <Link
+        href={href}
+        className={cn('nav-desktop__link', active && 'nav-desktop__link--active')}
+      >
+        {label}
+      </Link>
+    </li>
+  );
 };
 
-export default SidebarItem;
+export default MenuItem;

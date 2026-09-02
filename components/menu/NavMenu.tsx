@@ -1,44 +1,108 @@
-'use client'
-import {createContext, Dispatch, SetStateAction, useState} from "react";
-import { motion } from "framer-motion";
-import Navigation from "@/components/menu/Navigation";
-import MenuToggle from "@/components/menu/MenuToggle";
+'use client';
 
-interface MenuStateContextType{
-    isOpen: boolean,
-    setIsOpen: Dispatch<SetStateAction<boolean>>
-}
-const IMenuStateContext = {
-    isOpen: true,
-    setIsOpen:  () => {},
+import { createContext, Dispatch, SetStateAction, useCallback, useContext, useEffect, useState } from 'react';
+import Link from 'next/link';
+import { AnimatePresence, motion } from 'framer-motion';
+import Navigation from '@/components/menu/Navigation';
+import { siteConfig } from '@/lib/site-content';
+
+interface MenuStateContextType {
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export const MenuStateContext = createContext<MenuStateContextType>(IMenuStateContext)
-const NavMenu = () => {
-    const [isOpen, setIsOpen] = useState(false)
-
-    const variants = {
-        open: { right:0},
-        closed: { right: '-100%'},
-    }
-    return (
-        <motion.nav
-            initial={isOpen}
-            animate={isOpen ? "open" : "closed"}
-            className={``}
-        >
-            <MenuStateContext.Provider value={{isOpen, setIsOpen}}>
-                <motion.div className={`absolute top-0 bottom-0 w-full h-[100vh] lg:h-full z-40 flex justify-center items-center 
-                text-center bg-blue-600
-                lg:static lg:justify-end lg:bg-transparent`}
-                variants={variants}
-                >
-                    <Navigation/>
-                </motion.div>
-            </MenuStateContext.Provider>
-
-            <MenuToggle isOpen={isOpen} setIsOpen={setIsOpen} />
-        </motion.nav>
-    );
+const defaultContext: MenuStateContextType = {
+  isOpen: false,
+  setIsOpen: () => {},
 };
+
+export const MenuStateContext = createContext<MenuStateContextType>(defaultContext);
+
+export const useMenuState = () => useContext(MenuStateContext);
+
+const NavMenu = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const closeMenu = useCallback(() => setIsOpen(false), []);
+  const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return (
+    <MenuStateContext.Provider value={{ isOpen, setIsOpen }}>
+      <button
+        type="button"
+        onClick={toggleMenu}
+        className={`burger${isOpen ? ' burger--hidden' : ''}`}
+        aria-label={isOpen ? 'Закрыть меню' : 'Открыть меню'}
+        aria-expanded={isOpen}
+      >
+        <span className="burger__line" />
+        <span className="burger__line" />
+        <span className="burger__line" />
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="mobile-menu"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+          >
+            <div className="mobile-menu__head">
+              <Link href="/" onClick={closeMenu} className="header__logo">
+                <span className="header__logo-badge">{siteConfig.shortName}</span>
+                <span>
+                  <span className="mobile-menu__logo-name">{siteConfig.shortName}</span>
+                  <span className="mobile-menu__logo-tagline">{siteConfig.tagline}</span>
+                </span>
+              </Link>
+              <button
+                type="button"
+                onClick={closeMenu}
+                className="mobile-menu__close"
+                aria-label="Закрыть меню"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M6 6L18 18M18 6L6 18"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <nav className="mobile-menu__nav">
+              <Navigation variant="mobile" />
+              <a href={siteConfig.phoneHref} className="mobile-menu__phone">
+                {siteConfig.phone}
+              </a>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </MenuStateContext.Provider>
+  );
+};
+
 export default NavMenu;
